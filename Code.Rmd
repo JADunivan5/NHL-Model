@@ -1,0 +1,17 @@
+```{Loading Packages}
+
+library(tidyverse)
+library(janitor)
+library(moderndive)
+
+
+NHL <- read_csv(here::here("Data", "HockeyDS(CSV).csv"))  %>% 
+  clean_names()
+
+
+```
+```{Test Code}
+ggplot(data=NHL, mapping = aes(x=pts, y=x2))+ geom_boxplot()
+```
+
+
