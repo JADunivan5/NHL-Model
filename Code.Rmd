@@ -1,4 +1,4 @@
-```{Loading Packages}
+```{r Loading Packages}
 
 library(tidyverse)
 library(janitor)
@@ -6,12 +6,26 @@ library(moderndive)
 
 
 NHL <- read_csv(here::here("Data", "HockeyDS(CSV).csv"))  %>% 
-  clean_names()
+  clean_names() %>% 
+  select(-"rk", -"sh", -"sha", -"sol", -"sow", -"pp", -"ppo", -"pim_g", -"o_pim_g", -"srs", -"sos", -"ppa", -"ppoa")
 
-
+names(NHL)[1]= "Team"
+names(NHL)[18] = "sv_per"
+names(NHL)[16] = "sh_per"
+names(NHL)[15] = "shots"
 ```
-```{Test Code}
-ggplot(data=NHL, mapping = aes(x=pts, y=x2))+ geom_boxplot()
+
+
+
+
+
+```{r Attempting to find significance}
+#fit regression model
+model <- lm(pts_percent~ gf_g + sv_per + pp_percent + pk_percent, data=NHL)
+
+#View Model Summary
+summary(model)
+#Find that gf_g & sv_per are significant in predictings Pts%(Win)
 ```
 
 
